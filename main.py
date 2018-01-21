@@ -111,6 +111,8 @@ def pieceColor(board,x,y):
 
 def isValidMove(board,playerTurn,x1,y1,x2,y2): #checks if the move is valid
 	print("X1: {0} Y1: {1}".format(x1,y1))
+	if board[y2][x2]["Type"] == "Invalid":
+		return False
 	if board[y2][x2]["Color"] != "Valid": #check if the second spot is a filled space with anything
 		return False
 	if playerTurn == "Red" and board[y1][x1]["Type"] != "King":
