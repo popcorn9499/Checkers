@@ -69,13 +69,15 @@ def isValidJump(board,x1,y1,x2,y2):
 	print("X1: {0} Y1: {1} X2: {2} Y2: {3}".format(x1,y1,x2,y2))
 	if x2 > 7 or x2 < 0 or y2 > 7 or y2 < 0:
 		return False
+	print("Check validity")
+	print("X3: {0} y3: {1}".format(int(abs((y1+y2)/2)),int(abs(x1+x2)/2)))
 	if board[y1][x1]["Type"] == "Men" and board[int(abs((y1+y2)/2))][int(abs((x1+x2)/2))]["Type"] == "Men":
 		
 		if abs(x1-x2) != 2 or abs(y1-y2) != 2: #checks if the move wanted is the right amount of spaces away or not
 			print("Not enough spaces")
 			return False
 
-
+		print("Check valid spaces")
 
 		if board[y2][x2]["Type"] != "Valid": #basically checks if the spot the user wants to move isnt ocupied and therefor valid
 			print("Not valid space")
@@ -83,9 +85,8 @@ def isValidJump(board,x1,y1,x2,y2):
 		if board[y2][x2]["Type"] == "Invalid":
 			return False
 
-		abs(x1+x2/2) 
 
-
+		print("got to king checks and such")
 		#these checks r to check if the user isnt a king and checks against the valid moves it can do
 		if (y2 > y1) == False and playerTurn == "Red" and board[y1][x1]["Type"] != "King":
 			return False
@@ -132,7 +133,8 @@ def anyJumps(board,playerTurn): #check to see if any jump exists
 
 def tryJump(board,playerTurn,x1,y1,x2,y2):
 	if abs(x1-x2) != 2 or abs(y1-y2) != 2:
-		returnValues = [True,board]
+		print("Invalid jump ammount")
+		returnValues = [False,board]
 		return returnValues
 
 	if isValidJump(board,x1,y1,x2,y2):
@@ -150,9 +152,13 @@ def tryJump(board,playerTurn,x1,y1,x2,y2):
 			if changeState:
 				x2 = x3
 				y2 = y3
-			
+		board = kingMe(board,playerTurn,x2,y2)
 		returnValues = [True,board]
 		return returnValues
+	print("Nothing applied")
+	returnValues = [False,board]
+	return returnValues
+
 
 
 
@@ -166,6 +172,7 @@ def tryMove(board,playerTurn,x1,y1,x2,y2): #attempts to see if a move is possibi
 		return returnValues
 	if isValidMove(board,playerTurn,x1,y1,x2,y2):
 		board = movePiece(board,x1,y1,x2,y2)
+		board = kingMe(board,playerTurn,x2,y2)
 		returnValues = [True,board]
 		return returnValues
 	returnValues = [False,board]
@@ -177,6 +184,17 @@ def isKing(board,x,y):
 		return True
 	else:
 		return False
+
+def kingMe(board,playerTurn,x,y):#Finds users that should be kinged
+	print("Kinged Check")
+	if playerTurn == "Red" and board[y][x]["Type"] == "Men" and y == 7:
+		board[y][x]["Type"] = "King"
+		print("Kinged")
+	elif playerTurn == "Black" and board[y][x]["Type"] == "Men" and y == 0:
+		board[y][x]["Type"] = "King"
+		print("Kinged")
+	return board
+
 
 
 def switchTurn(playerTurn):
