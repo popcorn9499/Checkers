@@ -14,8 +14,17 @@ K = Black Knight
 
 '''
 playerTurn = "Black"
+global debugMode
+debugMode = False
+
+
 
 import display
+
+def debugInfo(Message):
+	if debugMode:
+		print(Message)
+
 def createBoard(): #creates the initial board array
 	board = []
 	for y in range(0,9):
@@ -66,27 +75,26 @@ def canDouble(x2,y2):
 		return True
 
 def isValidJump(board,x1,y1,x2,y2):
-	print("X1: {0} Y1: {1} X2: {2} Y2: {3}".format(x1,y1,x2,y2))
+	debugInfo("X1: {0} Y1: {1} X2: {2} Y2: {3}".format(x1,y1,x2,y2))
 	if x2 > 7 or x2 < 0 or y2 > 7 or y2 < 0:
 		return False
-	print("Check validity")
-	print("X3: {0} y3: {1}".format(int(abs((y1+y2)/2)),int(abs(x1+x2)/2)))
+	debugInfo("Check validity")
+	debugInfo("X3: {0} y3: {1}".format(int(abs((y1+y2)/2)),int(abs(x1+x2)/2)))
 	if board[y1][x1]["Type"] == "Men" and board[int(abs((y1+y2)/2))][int(abs((x1+x2)/2))]["Type"] == "Men":
 		
 		if abs(x1-x2) != 2 or abs(y1-y2) != 2: #checks if the move wanted is the right amount of spaces away or not
-			print("Not enough spaces")
+			debugInfo("Not enough spaces")
 			return False
 
-		print("Check valid spaces")
+		debugInfo("Check valid spaces")
 
 		if board[y2][x2]["Type"] != "Valid": #basically checks if the spot the user wants to move isnt ocupied and therefor valid
-			print("Not valid space")
+			debugInfo("Not valid space")
 			return False
 		if board[y2][x2]["Type"] == "Invalid":
 			return False
 
-
-		print("got to king checks and such")
+		debugInfo("got to king checks and such")
 		#these checks r to check if the user isnt a king and checks against the valid moves it can do
 		if (y2 > y1) == False and playerTurn == "Red" and board[y1][x1]["Type"] != "King":
 			return False
@@ -97,9 +105,9 @@ def isValidJump(board,x1,y1,x2,y2):
 
 		if board[int(abs((y1+y2)/2)) ][int(abs((x1+x2)/2) )]["Type"] == "Valid": #color?
 			return False
-		print("USER X Y {0}".format(board[y1][x1]["Color"]))
-		print("USER X3 Y3 {0}".format(board[int(abs((y1+y2)/2)) ][int(abs((x1+x2)/2))]["Color"]))
-		print("User must jump x: {0} y: {1} x2: {2} y2: {3}".format(x1,y1, x2, y2))
+		debugInfo("USER X Y {0}".format(board[y1][x1]["Color"]))
+		debugInfo("USER X3 Y3 {0}".format(board[int(abs((y1+y2)/2)) ][int(abs((x1+x2)/2))]["Color"]))
+		debugInfo("User must jump x: {0} y: {1} x2: {2} y2: {3}".format(x1,y1, x2, y2))
 		return True
 
 def pieceColor(board,x,y):
@@ -110,7 +118,7 @@ def pieceColor(board,x,y):
 
 
 def isValidMove(board,playerTurn,x1,y1,x2,y2): #checks if the move is valid
-	print("X1: {0} Y1: {1}".format(x1,y1))
+	debugInfo("X1: {0} Y1: {1}".format(x1,y1))
 	if board[y2][x2]["Type"] == "Invalid":
 		return False
 	if board[y2][x2]["Color"] != "Valid": #check if the second spot is a filled space with anything
@@ -128,19 +136,20 @@ def anyJumps(board,playerTurn): #check to see if any jump exists
 	for x in range(0,7):
 		for y in range(0,7):
 			if canDouble(x,y) and board[y][x]["Color"] == playerTurn:
-				print("User must jump x: {0} y: {1}".format(x,y))
+				if debugMode == True:
+					debugInfo("User must jump x: {0} y: {1}".format(x,y))
 				return True
 
 
 
 def tryJump(board,playerTurn,x1,y1,x2,y2):
 	if abs(x1-x2) != 2 or abs(y1-y2) != 2:
-		print("Invalid jump ammount")
+		debugInfo("Invalid jump ammount")
 		returnValues = [False,board]
 		return returnValues
 
 	if isValidJump(board,x1,y1,x2,y2):
-		print("Valid")
+		debugInfo("Valid")
 		board = movePiece(board,x1,y1,x2,y2)
 		board[int(abs((y1+y2)/2))][int(abs((x1+x2)/2))] = {"Color": "Valid", "Type": "Valid"}
 		
@@ -149,7 +158,7 @@ def tryJump(board,playerTurn,x1,y1,x2,y2):
 			y = y1
 			
 			display.display().start(board)
-			print("Double")
+			debugInfo("Double")
 			changeState ,board, x3, y3 = getInput(board,playerTurn,x2,y2)
 			if changeState:
 				x2 = x3
@@ -157,7 +166,7 @@ def tryJump(board,playerTurn,x1,y1,x2,y2):
 		board = kingMe(board,playerTurn,x2,y2)
 		returnValues = [True,board]
 		return returnValues
-	print("Nothing applied")
+	debugInfo("Nothing applied")
 	returnValues = [False,board]
 	return returnValues
 
@@ -169,7 +178,7 @@ def tryMove(board,playerTurn,x1,y1,x2,y2): #attempts to see if a move is possibi
 		returnValues = [False,board]
 		return returnValues
 	if anyJumps(board,playerTurn):
-		print("Must Jump!!!")
+		debugInfo("Must Jump!!!")
 		returnValues = [False,board]
 		return returnValues
 	if isValidMove(board,playerTurn,x1,y1,x2,y2):
@@ -188,13 +197,13 @@ def isKing(board,x,y):
 		return False
 
 def kingMe(board,playerTurn,x,y):#Finds users that should be kinged
-	print("Kinged Check")
+	debugInfo("Kinged Check")
 	if playerTurn == "Red" and board[y][x]["Type"] == "Men" and y == 7:
 		board[y][x]["Type"] = "King"
-		print("Kinged")
+		debugInfo("Kinged")
 	elif playerTurn == "Black" and board[y][x]["Type"] == "Men" and y == 0:
 		board[y][x]["Type"] = "King"
-		print("Kinged")
+		debugInfo("Kinged")
 	return board
 
 
@@ -223,13 +232,13 @@ def getInput(board,playerTurn,xPos1,yPos1):
 		if board[yPos1][xPos1]["Color"] != "Valid" and board[yPos1][xPos1]["Color"] == playerTurn:
 			returnValues = tryMove(board,playerTurn,xPos1,yPos1,xPos2,yPos2)
 			if returnValues[0] == False:
-				print("Move Failed")
+				debugInfo("Move Failed")
 				returnValues = tryJump(board,playerTurn,xPos1,yPos1,xPos2,yPos2)
 				if returnValues[0]:
 					board = returnValues[1]
 					playerTurn = switchTurn(playerTurn)
 			else:
-				print("Move Sucessful")
+				debugInfo("Move Sucessful")
 				board = returnValues[1]
 				playerTurn = switchTurn(playerTurn)
 	
@@ -244,11 +253,11 @@ def getInput(board,playerTurn,xPos1,yPos1):
 		return False,board,xPos2,yPos2
 
 
-	elif userInput[0] == "Find": #testing
+	elif userInput[0] == "Find" and debugMode: #testing
 		xPos = ord(userInput[1][1:]) - 97
 		yPos = userInput[1][:1]-1
 		print(board[int(yPos)][int(xPos)])
-	elif userInput[0] == "ChangeTurn":
+	elif userInput[0] == "ChangeTurn" and debugMode:
 		playerTurn = switchTurn(playerTurn)
 	elif userInput[0] == "Draw":
 		display.display().start(board)
