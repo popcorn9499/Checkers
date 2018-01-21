@@ -62,16 +62,16 @@ def movePiece(board,x1,y1,x2,y2): #moves the piece
 
 def canDouble(x2,y2): #checks if a double jump can be performed
 	if isValidJump(board,x2,y2,x2+2,y2+2):
-		print("X1: {0} Y1: {1} X2: {2} Y2: {3}".format(x2,y2,x2+2,y2+2))
+		debugInfo("X1: {0} Y1: {1} X2: {2} Y2: {3}".format(x2,y2,x2+2,y2+2))
 		return True
 	elif isValidJump(board,x2,y2,x2-2,y2+2):
-		print("X1: {0} Y1: {1} X2: {2} Y2: {3}".format(x2,y2,x2-2,y2+2))
+		debugInfo("X1: {0} Y1: {1} X2: {2} Y2: {3}".format(x2,y2,x2-2,y2+2))
 		return True
 	elif isValidJump(board,x2,y2,x2+2,y2-2):
-		print("X1: {0} Y1: {1} X2: {2} Y2: {3}".format(x2,y2,x2+2,y2-2))
+		debugInfo("X1: {0} Y1: {1} X2: {2} Y2: {3}".format(x2,y2,x2+2,y2-2))
 		return True
 	elif isValidJump(board,x2,y2,x2-2,y2-2):
-		print("X1: {0} Y1: {1} X2: {2} Y2: {3}".format(x2,y2,x2-2,y2-2))
+		debugInfo("X1: {0} Y1: {1} X2: {2} Y2: {3}".format(x2,y2,x2-2,y2-2))
 		return True
 
 def isValidJump(board,x1,y1,x2,y2): #checks if the jump is valid
@@ -153,7 +153,7 @@ def tryJump(board,playerTurn,x1,y1,x2,y2): #attempts to do the jump the user wan
 		board = movePiece(board,x1,y1,x2,y2)
 		board[int(abs((y1+y2)/2))][int(abs((x1+x2)/2))] = {"Color": "Valid", "Type": "Valid"}
 		while canDouble(x2,y2):
-			display.display().start(board)
+			display.display().start(board,playerTurn)
 			debugInfo("Double")
 			changeState ,board, x3, y3 = getInput(board,playerTurn,x2,y2)
 			if changeState:
@@ -175,6 +175,7 @@ def tryMove(board,playerTurn,x1,y1,x2,y2): #attempts to see if a move is possibi
 		return returnValues
 	if anyJumps(board,playerTurn):
 		debugInfo("Must Jump!!!")
+		print("Must Jump!!")
 		returnValues = [False,board]
 		return returnValues
 	if isValidMove(board,playerTurn,x1,y1,x2,y2):
@@ -235,14 +236,14 @@ def getInput(board,playerTurn,xPos1,yPos1):
 						board = returnValues[1]
 						playerTurn = switchTurn(playerTurn)
 						if debugMode == False: #this just draws the board unless debug mode is on
-							display.display().start(board)
+							display.display().start(board,playerTurn)
 				else:
 					debugInfo("Move Sucessful")
 					board = returnValues[1]
 					playerTurn = switchTurn(playerTurn)
 					if debugMode == False: #this just draws the board unless debug mode is on
-						display.display().start(board)
-		except IndexError:
+						display.display().start(board,playerTurn)
+		except (IndexError, TypeError,ValueError) as e:
 			print("Please read the instructions")
 
 	
@@ -256,7 +257,7 @@ def getInput(board,playerTurn,xPos1,yPos1):
 				playerTurn = switchTurn(playerTurn)
 				return True,board,xPos2,yPos2
 			return False,board,xPos2,yPos2
-		except IndexError:
+		except (IndexError, TypeError,ValueError) as e:
 					print("Please read the instructions")
 					return False,board,xPos2,yPos2
 
@@ -268,7 +269,7 @@ def getInput(board,playerTurn,xPos1,yPos1):
 	elif userInput[0] == "changeturn" and debugMode:
 		playerTurn = switchTurn(playerTurn)
 	elif userInput[0] == "draw":
-		display.display().start(board)
+		display.display().start(board,playerTurn)
 	return board,playerTurn
 
 
@@ -279,6 +280,6 @@ def getInput(board,playerTurn,xPos1,yPos1):
 
 board = createBoard()
 
-display.display().start(board) #draws the board
+display.display().start(board,playerTurn) #draws the board
 while True:
 	board,playerTurn = waitPlayer(board,playerTurn) #starts the actual game

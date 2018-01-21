@@ -40,22 +40,22 @@ class display():
 		print(string)
 
 
-	def infoPanel(self): 
+	def infoPanel(self,playerTurn): 
 		info = '''
-O = Red Men			
+O = Red Men			Player {0}'s Turn
 I = Red King
 L = Black Men
 K = Black King
 _ = Valid Spaces
 
-		'''
+		'''.format(playerTurn)
 		print(info)
 
-	def start(self,board): #draws the board
+	def start(self,board,playerTurn): #draws the board
 		self.clearScreen()
 		self.drawLetters()
 		self.drawBoard(board)
-		self.infoPanel()
+		self.infoPanel(playerTurn)
 
 
 
