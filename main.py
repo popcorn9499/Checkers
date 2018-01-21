@@ -218,49 +218,56 @@ def waitPlayer(board,playerTurn): #this is for waiting for the player and doing 
 
 def getInput(board,playerTurn,xPos1,yPos1):
 	print("Input")
-	userInput = input()
+	userInput = input().lower()
 	userInput = userInput.split()
-	if userInput[0] == "Move" and xPos1 == -1 and yPos1 == -1:
-		xPos1 = int(ord(userInput[1][1:]) - 97)
-		yPos1 = int(userInput[1][:1])
-		xPos2 = int(ord(userInput[2][1:]) - 97)
-		yPos2 = int(userInput[2][:1])
-		if board[yPos1][xPos1]["Color"] != "Valid" and board[yPos1][xPos1]["Color"] == playerTurn:
-			returnValues = tryMove(board,playerTurn,xPos1,yPos1,xPos2,yPos2)
-			if returnValues[0] == False:
-				debugInfo("Move Failed")
-				returnValues = tryJump(board,playerTurn,xPos1,yPos1,xPos2,yPos2)
-				if returnValues[0]:
+	if userInput[0] == "move" and xPos1 == -1 and yPos1 == -1:
+		try:
+			xPos1 = int(ord(userInput[1][1:]) - 97)
+			yPos1 = int(userInput[1][:1])
+			xPos2 = int(ord(userInput[2][1:]) - 97)
+			yPos2 = int(userInput[2][:1])
+			if board[yPos1][xPos1]["Color"] != "Valid" and board[yPos1][xPos1]["Color"] == playerTurn:
+				returnValues = tryMove(board,playerTurn,xPos1,yPos1,xPos2,yPos2)
+				if returnValues[0] == False:
+					debugInfo("Move Failed")
+					returnValues = tryJump(board,playerTurn,xPos1,yPos1,xPos2,yPos2)
+					if returnValues[0]:
+						board = returnValues[1]
+						playerTurn = switchTurn(playerTurn)
+						if debugMode == False: #this just draws the board unless debug mode is on
+							display.display().start(board)
+				else:
+					debugInfo("Move Sucessful")
 					board = returnValues[1]
 					playerTurn = switchTurn(playerTurn)
 					if debugMode == False: #this just draws the board unless debug mode is on
 						display.display().start(board)
-			else:
-				debugInfo("Move Sucessful")
-				board = returnValues[1]
-				playerTurn = switchTurn(playerTurn)
-				if debugMode == False: #this just draws the board unless debug mode is on
-					display.display().start(board)
+		except IndexError:
+			print("Please read the instructions")
 
 	
-	elif userInput[0] =="Move" and xPos1 != -1 and yPos1 != -1: #this move is only done when the game is in jump mode where the user must jump every space required
-		xPos2 = int(ord(userInput[1][1:]) - 97)
-		yPos2 = int(userInput[1][:1])
-		returnValues = tryJump(board,playerTurn,xPos1,yPos1,xPos2,yPos2)
-		if returnValues[0]:
-			board = returnValues[1]
-			playerTurn = switchTurn(playerTurn)
-			return True,board,xPos2,yPos2
-		return False,board,xPos2,yPos2
+	elif userInput[0] =="move" and xPos1 != -1 and yPos1 != -1: #this move is only done when the game is in jump mode where the user must jump every space required
+		try:
+			xPos2 = int(ord(userInput[1][1:]) - 97)
+			yPos2 = int(userInput[1][:1])
+			returnValues = tryJump(board,playerTurn,xPos1,yPos1,xPos2,yPos2)
+			if returnValues[0]:
+				board = returnValues[1]
+				playerTurn = switchTurn(playerTurn)
+				return True,board,xPos2,yPos2
+			return False,board,xPos2,yPos2
+		except IndexError:
+					print("Please read the instructions")
+					return False,board,xPos2,yPos2
 
 
-	elif userInput[0] == "Find" and debugMode: #testing
+	elif userInput[0] == "find" and debugMode: #testing
 		xPos = ord(userInput[1][1:]) - 97
 		yPos = userInput[1][:1]-1
 		print(board[int(yPos)][int(xPos)])
-	elif userInput[0] == "ChangeTurn" and debugMode:
+	elif userInput[0] == "changeturn" and debugMode:
 		playerTurn = switchTurn(playerTurn)
-	elif userInput[0] == "Draw":
+	elif userInput[0] == "draw":
 		display.display().start(board)
 	return board,playerTurn
 
