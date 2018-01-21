@@ -155,8 +155,8 @@ def tryJump(board,playerTurn,x1,y1,x2,y2): #attempts to do the jump the user wan
 		while canDouble(x2,y2):
 			display.display().start(board,playerTurn)
 			debugInfo("Double")
-			changeState ,board, x3, y3 = getInput(board,playerTurn,x2,y2)
-			if changeState:
+			changeState ,board, x3, y3 = getInput(board,playerTurn,x2,y2) #repolls for input to get the user to get where the user wants to move to
+			if changeState: #change state is just a variable 
 				x2 = x3
 				y2 = y3
 		board = kingMe(board,playerTurn,x2,y2)
@@ -270,6 +270,9 @@ def getInput(board,playerTurn,xPos1,yPos1):
 		playerTurn = switchTurn(playerTurn)
 	elif userInput[0] == "draw":
 		display.display().start(board,playerTurn)
+	elif userInput[0] == "quit":
+		print("Closing...")
+		exit()
 	return board,playerTurn
 
 
