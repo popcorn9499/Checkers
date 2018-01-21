@@ -14,14 +14,14 @@ K = Black Knight
 
 '''
 playerTurn = "Black"
+#this declares the debug mode information
 global debugMode
 debugMode = False
-
-
-
 import display
 
-def debugInfo(Message):
+
+
+def debugInfo(Message): #creates for the purpose of debugging when it is needed. makes my life easier instead of adding all my print statements back in
 	if debugMode:
 		print(Message)
 
@@ -53,14 +53,14 @@ def createBoardX(y): #this creates the horizontal colum
 				boardDetails[x] = {"Color": "Valid", "Type": "Invalid"}
 	return boardDetails
 
-def movePiece(board,x1,y1,x2,y2): #
+def movePiece(board,x1,y1,x2,y2): #moves the piece
 	guyDetails = board[int(y1)][int(x1)] 
 	board[int(y1)][int(x1)]  = {"Color": "Valid", "Type": "Valid"}
 	board[int(y2)][int(x2)] = guyDetails
 	return board
 
 
-def canDouble(x2,y2):
+def canDouble(x2,y2): #checks if a double jump can be performed
 	if isValidJump(board,x2,y2,x2+2,y2+2):
 		print("X1: {0} Y1: {1} X2: {2} Y2: {3}".format(x2,y2,x2+2,y2+2))
 		return True
@@ -74,7 +74,7 @@ def canDouble(x2,y2):
 		print("X1: {0} Y1: {1} X2: {2} Y2: {3}".format(x2,y2,x2-2,y2-2))
 		return True
 
-def isValidJump(board,x1,y1,x2,y2):
+def isValidJump(board,x1,y1,x2,y2): #checks if the jump is valid
 	debugInfo("X1: {0} Y1: {1} X2: {2} Y2: {3}".format(x1,y1,x2,y2))
 	if x2 > 7 or x2 < 0 or y2 > 7 or y2 < 0:
 		return False
@@ -103,14 +103,14 @@ def isValidJump(board,x1,y1,x2,y2):
 		if board[int(abs((y1+y2)/2)) ][int(abs((x1+x2)/2) )]["Color"] == pieceColor(board,x1,y1): #color?
 			return False
 
-		if board[int(abs((y1+y2)/2)) ][int(abs((x1+x2)/2) )]["Type"] == "Valid": #color?
+		if board[int(abs((y1+y2)/2)) ][int(abs((x1+x2)/2) )]["Type"] == "Valid": #color? 
 			return False
 		debugInfo("USER X Y {0}".format(board[y1][x1]["Color"]))
 		debugInfo("USER X3 Y3 {0}".format(board[int(abs((y1+y2)/2)) ][int(abs((x1+x2)/2))]["Color"]))
 		debugInfo("User must jump x: {0} y: {1} x2: {2} y2: {3}".format(x1,y1, x2, y2))
 		return True
 
-def pieceColor(board,x,y):
+def pieceColor(board,x,y):#gets the piece color
 	return board[y][x]["Color"]
 
 
@@ -142,21 +142,17 @@ def anyJumps(board,playerTurn): #check to see if any jump exists
 
 
 
-def tryJump(board,playerTurn,x1,y1,x2,y2):
-	if abs(x1-x2) != 2 or abs(y1-y2) != 2:
+def tryJump(board,playerTurn,x1,y1,x2,y2): #attempts to do the jump the user wants to do
+	if abs(x1-x2) != 2 or abs(y1-y2) != 2: #checks first if its the right number of spaces away.
 		debugInfo("Invalid jump ammount")
 		returnValues = [False,board]
 		return returnValues
 
-	if isValidJump(board,x1,y1,x2,y2):
+	if isValidJump(board,x1,y1,x2,y2): #checks if its a valid jump using this function
 		debugInfo("Valid")
 		board = movePiece(board,x1,y1,x2,y2)
 		board[int(abs((y1+y2)/2))][int(abs((x1+x2)/2))] = {"Color": "Valid", "Type": "Valid"}
-		
 		while canDouble(x2,y2):
-			x = x1
-			y = y1
-			
 			display.display().start(board)
 			debugInfo("Double")
 			changeState ,board, x3, y3 = getInput(board,playerTurn,x2,y2)
@@ -190,7 +186,7 @@ def tryMove(board,playerTurn,x1,y1,x2,y2): #attempts to see if a move is possibi
 	return returnValues
 
 
-def isKing(board,x,y):
+def isKing(board,x,y): #checks if the piece is a king or not
 	if board[y][x]["Type"] == "King":
 		return True
 	else:
@@ -215,7 +211,7 @@ def switchTurn(playerTurn):
 		playerTurn = "Black"
 	return playerTurn
 
-def waitPlayer(board,playerTurn):
+def waitPlayer(board,playerTurn): #this is for waiting for the player and doing all the checks required from it
 	board,playerTurn = getInput(board,playerTurn,-1,-1)
 	return board,playerTurn
 
@@ -237,12 +233,17 @@ def getInput(board,playerTurn,xPos1,yPos1):
 				if returnValues[0]:
 					board = returnValues[1]
 					playerTurn = switchTurn(playerTurn)
+					if debugMode == False: #this just draws the board unless debug mode is on
+						display.display().start(board)
 			else:
 				debugInfo("Move Sucessful")
 				board = returnValues[1]
 				playerTurn = switchTurn(playerTurn)
+				if debugMode == False: #this just draws the board unless debug mode is on
+					display.display().start(board)
+
 	
-	elif userInput[0] =="Move" and xPos1 != -1 and yPos1 != -1:
+	elif userInput[0] =="Move" and xPos1 != -1 and yPos1 != -1: #this move is only done when the game is in jump mode where the user must jump every space required
 		xPos2 = int(ord(userInput[1][1:]) - 97)
 		yPos2 = int(userInput[1][:1])
 		returnValues = tryJump(board,playerTurn,xPos1,yPos1,xPos2,yPos2)
@@ -264,28 +265,13 @@ def getInput(board,playerTurn,xPos1,yPos1):
 	return board,playerTurn
 
 
+
+
+
+
+
 board = createBoard()
 
-#while True:
-display.display().start(board)
+display.display().start(board) #draws the board
 while True:
-	board,playerTurn = waitPlayer(board,playerTurn)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-	
+	board,playerTurn = waitPlayer(board,playerTurn) #starts the actual game
