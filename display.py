@@ -43,10 +43,10 @@ class display():
 	def infoPanel(self,playerTurn): 
 		info = '''
 O = Red Men			Player {0}'s Turn
-I = Red King
-L = Black Men
-K = Black King
-_ = Valid Spaces
+I = Red King		
+L = Black Men		Commands: Quit, Move
+K = Black King		to move a player type Move (starting space) (ending space)
+_ = Valid Spaces	ex Move 1a 2b
 
 		'''.format(playerTurn)
 		print(info)
