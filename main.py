@@ -153,7 +153,8 @@ def tryJump(board,playerTurn,x1,y1,x2,y2): #attempts to do the jump the user wan
 		board = movePiece(board,x1,y1,x2,y2)
 		board[int(abs((y1+y2)/2))][int(abs((x1+x2)/2))] = {"Color": "Valid", "Type": "Valid"}
 		while canDouble(x2,y2):
-			display.display().start(board,playerTurn)
+			redLeft, blackLeft = getPiecesLeft(board)
+			display.display().start(board,playerTurn,redLeft,blackLeft)
 			debugInfo("Double")
 			changeState ,board, x3, y3 = getInput(board,playerTurn,x2,y2) #repolls for input to get the user to get where the user wants to move to
 			if changeState: #change state is just a variable 
@@ -209,8 +210,22 @@ def waitPlayer(board,playerTurn): #this is for waiting for the player and doing 
 	board,playerTurn = getInput(board,playerTurn,-1,-1)
 	return board,playerTurn
 
+def getPiecesLeft(board):
+	redLeft = 0
+	blackLeft = 0
+	for x in range(0,8):
+		for y in range(0,8):
+			if pieceType(board,x,y) == "Men" or pieceType(board,x,y) == "King":
+				if pieceColor(board,x,y) == "Red":
+					redLeft += 1
+				elif pieceColor(board,x,y) == "Black":
+					blackLeft += 1
+	return redLeft,blackLeft
 
 def getInput(board,playerTurn,xPos1,yPos1):
+	#get pieces left
+	redLeft,blackLeft = getPiecesLeft(board)
+
 	print("Input")
 	userInput = input().lower()
 	userInput = userInput.split()
@@ -235,7 +250,7 @@ def getInput(board,playerTurn,xPos1,yPos1):
 					board = returnValues[1]
 					playerTurn = switchTurn(playerTurn)
 					if debugMode == False: #this just draws the board unless debug mode is on
-						display.display().start(board,playerTurn)
+						display.display().start(board,playerTurn,redLeft,blackLeft)
 		except (IndexError, TypeError,ValueError) as error:
 			print('Error on line {}'.format(sys.exc_info()[-1].tb_lineno), type(error).__name__, error)
 			print("Please read the instructions")
@@ -266,7 +281,7 @@ def getInput(board,playerTurn,xPos1,yPos1):
 			if type(returnValues[0]) == list: #Checks if the values returned was a list
 				board = returnValues[0]
 				playerTurn = returnValues[1]
-				display.display().start(board,playerTurn) #displays the new board information
+				display.display().start(board,playerTurn,redLeft,blackLeft) #displays the new board information
 				print("Loading")
 			else:
 				print("File doesnt exist")
@@ -280,7 +295,7 @@ def getInput(board,playerTurn,xPos1,yPos1):
 	elif userInput[0] == "changeturn" and debugMode:
 		playerTurn = switchTurn(playerTurn)
 	elif userInput[0] == "draw":
-		display.display().start(board,playerTurn)
+		display.display().start(board,playerTurn,redLeft,blackLeft)
 	elif userInput[0] == "quit":
 		print("Closing...")
 		exit()
@@ -293,7 +308,7 @@ def getInput(board,playerTurn,xPos1,yPos1):
 
 
 board = createBoard()
-
-display.display().start(board,playerTurn) #draws the board
+redLeft,blackLeft = getPiecesLeft(board)
+display.display().start(board,playerTurn,redLeft,blackLeft) #draws the board
 while True:
 	board,playerTurn = waitPlayer(board,playerTurn) #starts the actual game

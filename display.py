@@ -40,22 +40,25 @@ class display():
 		print(string)
 
 
-	def infoPanel(self,playerTurn): 
+	def infoPanel(self,playerTurn,redLeft,blackLeft): 
 		info = '''
 O = Red Men			Player {0}'s Turn
-I = Red King		
-L = Black Men		Commands: Quit, Move
-K = Black King		to move a player type Move (starting space) (ending space)
-_ = Valid Spaces	ex Move 1a 2b
+I = Red King			Red: {1}
+L = Black Men			Black: {2}
+K = Black King		Commands: Quit, Move, Save, Load, List
+_ = Valid Spaces 	to move a player type Move (starting space) (ending space) ex Move 1a 2b
+			ex Save (some file)
+			ex Save (some file that exists)
 
-		'''.format(playerTurn)
+
+		'''.format(playerTurn,redLeft,blackLeft)
 		print(info)
 
-	def start(self,board,playerTurn): #draws the board
+	def start(self,board,playerTurn,redLeft,blackLeft): #draws the board
 		self.clearScreen()
 		self.drawLetters()
 		self.drawBoard(board)
-		self.infoPanel(playerTurn)
+		self.infoPanel(playerTurn,redLeft,blackLeft)
 
 
 
