@@ -19,6 +19,7 @@ global debugMode
 debugMode = False
 import display
 import fileIO
+import sys
 
 
 def debugInfo(Message): #creates for the purpose of debugging when it is needed. makes my life easier instead of adding all my print statements back in
@@ -234,7 +235,7 @@ def gameover(redLeft,blackLeft):#checks if game over or not
 def getInput(board,playerTurn,xPos1,yPos1):
 	#get pieces left
 	redLeft,blackLeft = getPiecesLeft(board)
-	if gameover(redLeft,blackLeft):
+	if gameover(redLeft,blackLeft): #checks if the game is over or not
 		exit()	
 	print("Input")
 	userInput = input().lower()
@@ -262,7 +263,7 @@ def getInput(board,playerTurn,xPos1,yPos1):
 					if debugMode == False: #this just draws the board unless debug mode is on
 						display.display().start(board,playerTurn,redLeft,blackLeft)
 		except (IndexError, TypeError,ValueError) as error:
-			print('Error on line {}'.format(sys.exc_info()[-1].tb_lineno), type(error).__name__, error)
+			debugInfo('Error on line {}'.format(sys.exc_info()[-1].tb_lineno), type(error).__name__, error)
 			print("Please read the instructions")
 
 	
