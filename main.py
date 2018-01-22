@@ -80,7 +80,7 @@ def isValidJump(board,x1,y1,x2,y2): #checks if the jump is valid
 		return False
 	debugInfo("Check validity")
 	debugInfo("X3: {0} y3: {1}".format(int(abs((y1+y2)/2)),int(abs(x1+x2)/2)))
-	if board[y1][x1]["Type"] == "Men" and board[int(abs((y1+y2)/2))][int(abs((x1+x2)/2))]["Type"] == "Men":
+	if pieceType(board,x1,y1) == "Men" and pieceType(board,int(abs((x1+x2)/2)),int(abs((y1+y2)/2))) == "Men":
 		
 		if abs(x1-x2) != 2 or abs(y1-y2) != 2: #checks if the move wanted is the right amount of spaces away or not
 			debugInfo("Not enough spaces")
@@ -88,46 +88,47 @@ def isValidJump(board,x1,y1,x2,y2): #checks if the jump is valid
 
 		debugInfo("Check valid spaces")
 
-		if board[y2][x2]["Type"] != "Valid": #basically checks if the spot the user wants to move isnt ocupied and therefor valid
+		if pieceType(board,x2,y2) != "Valid": #basically checks if the spot the user wants to move isnt ocupied and therefor valid
 			debugInfo("Not valid space")
 			return False
-		if board[y2][x2]["Type"] == "Invalid":
+		if pieceType(board,x2,y2) == "Invalid":
 			return False
 
 		debugInfo("got to king checks and such")
 		#these checks r to check if the user isnt a king and checks against the valid moves it can do
-		if (y2 > y1) == False and playerTurn == "Red" and board[y1][x1]["Type"] != "King":
+		if (y2 > y1) == False and playerTurn == "Red" and pieceType(board,x1,y1) != "King":
 			return False
-		elif (y2 < y1) == False and playerTurn == "Black" and board[y1][x1]["Type"] != "King":
+		elif (y2 < y1) == False and playerTurn == "Black" and pieceType(board,x1,y1) != "King":
 			return False
-		if board[int(abs((y1+y2)/2)) ][int(abs((x1+x2)/2) )]["Color"] == pieceColor(board,x1,y1): #color?
+		if pieceColor(board,int(abs((x1+x2)/2) ),int(abs((y1+y2)/2))) == pieceColor(board,x1,y1): #color?
 			return False
 
-		if board[int(abs((y1+y2)/2)) ][int(abs((x1+x2)/2) )]["Type"] == "Valid": #color? 
+		if pieceType(board,int(abs((x1+x2)/2)),int(abs((y1+y2)/2))) == "Valid": #color? 
 			return False
-		debugInfo("USER X Y {0}".format(board[y1][x1]["Color"]))
-		debugInfo("USER X3 Y3 {0}".format(board[int(abs((y1+y2)/2)) ][int(abs((x1+x2)/2))]["Color"]))
+		debugInfo("USER X Y {0}".format(pieceColor(board,x1,y1)))
+		debugInfo("USER X3 Y3 {0}".format(pieceColor(board,int(abs((x1+x2)/2) ),int(abs((y1+y2)/2)))))
 		debugInfo("User must jump x: {0} y: {1} x2: {2} y2: {3}".format(x1,y1, x2, y2))
 		return True
 
 def pieceColor(board,x,y):#gets the piece color
 	return board[y][x]["Color"]
 
-
+def pieceType(board,x,y):
+	return board[y][x]["Type"]
 
 
 
 def isValidMove(board,playerTurn,x1,y1,x2,y2): #checks if the move is valid
 	debugInfo("X1: {0} Y1: {1}".format(x1,y1))
-	if board[y2][x2]["Type"] == "Invalid":
+	if pieceType(board,x2,y2) == "Invalid":
 		return False
-	if board[y2][x2]["Color"] != "Valid": #check if the second spot is a filled space with anything
+	if pieceType(board,x2,y2) != "Valid": #check if the second spot is a filled space with anything
 		return False
-	if playerTurn == "Red" and board[y1][x1]["Type"] != "King":
+	if playerTurn == "Red" and pieceType(board,x1,y1) != "King":
 		return y2 > y1
-	elif playerTurn == "Black" and board[y1][x1]["Type"] != "King":
+	elif playerTurn == "Black" and pieceType(board,x1,y1) != "King":
 		return y2 < y1
-	if board[y1][x1]["Type"] == "King":
+	if pieceType(board,x1,y1) == "King":
 		return True
 	return False
 
@@ -135,7 +136,7 @@ def isValidMove(board,playerTurn,x1,y1,x2,y2): #checks if the move is valid
 def anyJumps(board,playerTurn): #check to see if any jump exists
 	for x in range(0,7):
 		for y in range(0,7):
-			if canDouble(x,y) and board[y][x]["Color"] == playerTurn:
+			if canDouble(x,y) and pieceColor(board,x,y) == playerTurn:
 				if debugMode == True:
 					debugInfo("User must jump x: {0} y: {1}".format(x,y))
 				return True
@@ -186,13 +187,6 @@ def tryMove(board,playerTurn,x1,y1,x2,y2): #attempts to see if a move is possibi
 	returnValues = [False,board]
 	return returnValues
 
-
-def isKing(board,x,y): #checks if the piece is a king or not
-	if board[y][x]["Type"] == "King":
-		return True
-	else:
-		return False
-
 def kingMe(board,playerTurn,x,y):#Finds users that should be kinged
 	debugInfo("Kinged Check")
 	if playerTurn == "Red" and board[y][x]["Type"] == "Men" and y == 7:
@@ -227,7 +221,7 @@ def getInput(board,playerTurn,xPos1,yPos1):
 			yPos1 = int(userInput[1][:1])
 			xPos2 = int(ord(userInput[2][1:]) - 97)
 			yPos2 = int(userInput[2][:1])
-			if board[yPos1][xPos1]["Color"] != "Valid" and board[yPos1][xPos1]["Color"] == playerTurn:
+			if pieceColor(board,xPos1,yPos1) != "Valid" and pieceColor(board,xPos1,yPos1) == playerTurn:
 				returnValues = tryMove(board,playerTurn,xPos1,yPos1,xPos2,yPos2)
 				if returnValues[0] == False:
 					debugInfo("Move Failed")
@@ -243,7 +237,8 @@ def getInput(board,playerTurn,xPos1,yPos1):
 					playerTurn = switchTurn(playerTurn)
 					if debugMode == False: #this just draws the board unless debug mode is on
 						display.display().start(board,playerTurn)
-		except (IndexError, TypeError,ValueError) as e:
+		except (IndexError, TypeError,ValueError) as error:
+			print('Error on line {}'.format(sys.exc_info()[-1].tb_lineno), type(error).__name__, error)
 			print("Please read the instructions")
 
 	
