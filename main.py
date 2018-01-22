@@ -263,7 +263,7 @@ def getInput(board,playerTurn,xPos1,yPos1):
 					if debugMode == False: #this just draws the board unless debug mode is on
 						display.display().start(board,playerTurn,redLeft,blackLeft)
 		except (IndexError, TypeError,ValueError) as error:
-			debugInfo('Error on line {}'.format(sys.exc_info()[-1].tb_lineno), type(error).__name__, error)
+			debugInfo('Error on line {}'.format(sys.exc_info()[-1].tb_lineno, type(error).__name__, error))
 			print("Please read the instructions")
 
 	
