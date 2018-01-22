@@ -18,7 +18,7 @@ playerTurn = "Black"
 global debugMode
 debugMode = False
 import display
-
+import fileIO
 
 
 def debugInfo(Message): #creates for the purpose of debugging when it is needed. makes my life easier instead of adding all my print statements back in
@@ -261,7 +261,8 @@ def getInput(board,playerTurn,xPos1,yPos1):
 					print("Please read the instructions")
 					return False,board,xPos2,yPos2
 
-
+	elif userInput[0] == "save":
+		fileIO.saveBoard(userInput[1],board,playerTurn)
 	elif userInput[0] == "find" and debugMode: #testing
 		xPos = ord(userInput[1][1:]) - 97
 		yPos = userInput[1][:1]-1
