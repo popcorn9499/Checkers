@@ -21,11 +21,14 @@ def saveBoard(fileName,board,playerTurn):
 	print("Saved")
 
 def loadBoard(fileName):
-	load = fileLoad("Saves/"+fileName+".save")
-	board = load["Board"]
-	playerTurn = load["playerTurn"]
-	print("Loaded")
-	return board,playerTurn
+	try:
+		load = fileLoad("Saves/"+fileName+".save")
+		board = load["Board"]
+		playerTurn = load["playerTurn"]
+		print("Loaded")
+		return [board,playerTurn]
+	except FileNotFoundError as error: 
+		return [False, False]
 
 def listSaves():
 	print("Saves:")

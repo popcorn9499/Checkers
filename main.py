@@ -261,11 +261,22 @@ def getInput(board,playerTurn,xPos1,yPos1):
 					print("Please read the instructions")
 					return False,board,xPos2,yPos2
 
-	elif userInput[0] == "save":
-		fileIO.saveBoard(userInput[1],board,playerTurn)
-	elif userInput[0] == "load":
-		board,playerTurn = fileIO.loadBoard(userInput[1])
-		display.display().start(board,playerTurn)
+	elif userInput[0] == "save": #saves all the information on the board
+		if userInput[1] != "":
+			fileIO.saveBoard(userInput[1],board,playerTurn)
+	elif userInput[0] == "load": #Loads alll the board information from a file
+		if userInput[1] != "": 
+
+			returnValues = fileIO.loadBoard(userInput[1])
+			print(type(returnValues[0]))
+			if type(returnValues[0]) == list: #Checks if the values returned was a list
+				board = returnValues[0]
+				playerTurn = returnValues[1]
+				display.display().start(board,playerTurn) #displays the new board information
+				print("Loading")
+			else:
+				print("File doesnt exist")
+		
 	elif userInput[0] == "list":
 		fileIO.listSaves()
 	elif userInput[0] == "find" and debugMode: #testing
