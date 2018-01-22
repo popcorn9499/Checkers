@@ -28,4 +28,7 @@ def loadBoard(fileName):
 	return board,playerTurn
 
 def listSaves():
-	pass	
+	print("Saves:")
+	for (dirpath, dirnames, filenames) in os.walk("Saves"):
+		print("  {0}".format(filenames[0]))
+		break
