@@ -16,7 +16,7 @@ K = Black Knight
 playerTurn = "Black"
 #this declares the debug mode information
 global debugMode
-debugMode = False
+debugMode = True
 import display
 import fileIO
 import sys
@@ -41,7 +41,7 @@ def createBoardX(y): #this creates the horizontal colum
 				if y < 3:
 					boardDetails[x] = {"Color": "Red", "Type": "Men"}
 				elif y > 4:
-					boardDetails[x] = {"Color": "Black", "Type": "Men"}
+					boardDetails[x] = {"Color": "Black", "Type": "King"}
 			else:
 				boardDetails[x] = {"Color": "Valid", "Type": "Invalid"}
 		elif y % 2 == 0: #even
@@ -81,8 +81,13 @@ def isValidJump(board,x1,y1,x2,y2): #checks if the jump is valid
 		return False
 	debugInfo("Check validity")
 	debugInfo("X3: {0} y3: {1}".format(int(abs((y1+y2)/2)),int(abs(x1+x2)/2)))
-	if pieceType(board,x1,y1) == "Men" and pieceType(board,int(abs((x1+x2)/2)),int(abs((y1+y2)/2))) == "Men":
-		
+	if pieceType(board,x1,y1) == "Men" or pieceType(board,x1,y1) == "King":#checks if the user is a king or a man in which case this is fine and continues
+
+		if pieceType(board,int(abs((x1+x2)/2)),int(abs((y1+y2)/2))) == "Invalid" or pieceType(board,int(abs((x1+x2)/2)),int(abs((y1+y2)/2))) == "Valid": #checks if the space between point a and point b in which the user wants to jump has someone to jump
+			return False
+
+
+
 		if abs(x1-x2) != 2 or abs(y1-y2) != 2: #checks if the move wanted is the right amount of spaces away or not
 			debugInfo("Not enough spaces")
 			return False
