@@ -1,7 +1,15 @@
+import os
+import sys
 class display():
+		
 	def clearScreen(self): #kinda obvious
-		for i in range(0,99):
-			print("")
+		if sys.platform == "linux" or sys.platform == "linux2":
+			os.system('clear')
+		if sys.platform == "win32":
+			os.system('cls')
+		else:
+			for i in range(0,99):
+			 	print("")
 
 	def getChar(self,details): #Gets the character to display for the slot
 		if details["Color"] == "Red":
