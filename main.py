@@ -222,10 +222,20 @@ def getPiecesLeft(board):
 					blackLeft += 1
 	return redLeft,blackLeft
 
+def gameover(redLeft,blackLeft):#checks if game over or not
+	if redLeft < 1:
+		Print("Black Won")
+		return True
+	elif blackLeft < 1:
+		print("Red Won")
+		return True
+	return False
+
 def getInput(board,playerTurn,xPos1,yPos1):
 	#get pieces left
 	redLeft,blackLeft = getPiecesLeft(board)
-
+	if gameover(redLeft,blackLeft):
+		exit()	
 	print("Input")
 	userInput = input().lower()
 	userInput = userInput.split()
