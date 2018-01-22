@@ -110,10 +110,10 @@ def isValidJump(board,x1,y1,x2,y2): #checks if the jump is valid
 		debugInfo("User must jump x: {0} y: {1} x2: {2} y2: {3}".format(x1,y1, x2, y2))
 		return True
 
-def pieceColor(board,x,y):#gets the piece color
+def pieceColor(board,x,y):#gets the piece color and returns it
 	return board[y][x]["Color"]
 
-def pieceType(board,x,y):
+def pieceType(board,x,y): #gets the piece type and returns it
 	return board[y][x]["Type"]
 
 
@@ -140,7 +140,6 @@ def anyJumps(board,playerTurn): #check to see if any jump exists
 				if debugMode == True:
 					debugInfo("User must jump x: {0} y: {1}".format(x,y))
 				return True
-
 
 
 def tryJump(board,playerTurn,x1,y1,x2,y2): #attempts to do the jump the user wants to do
