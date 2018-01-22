@@ -263,6 +263,9 @@ def getInput(board,playerTurn,xPos1,yPos1):
 
 	elif userInput[0] == "save":
 		fileIO.saveBoard(userInput[1],board,playerTurn)
+	elif userInput[0] == "load":
+		board,playerTurn = fileIO.loadBoard(userInput[1])
+		display.display().start(board,playerTurn)
 	elif userInput[0] == "find" and debugMode: #testing
 		xPos = ord(userInput[1][1:]) - 97
 		yPos = userInput[1][:1]-1

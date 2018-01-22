@@ -19,3 +19,13 @@ def saveBoard(fileName,board,playerTurn):
 	save = {"Board":board,"playerTurn":playerTurn} #
 	fileSave("Saves/"+fileName+".save",save) #saves the information
 	print("Saved")
+
+def loadBoard(fileName):
+	load = fileLoad("Saves/"+fileName+".save")
+	board = load["Board"]
+	playerTurn = load["playerTurn"]
+	print("Loaded")
+	return board,playerTurn
+
+def listSaves():
+	pass	
