@@ -16,7 +16,7 @@ K = Black Knight
 playerTurn = "Black"
 #this declares the debug mode information
 global debugMode
-debugMode = True
+debugMode = False
 import display
 import fileIO
 import sys
@@ -85,8 +85,6 @@ def isValidJump(board,x1,y1,x2,y2): #checks if the jump is valid
 
 		if pieceType(board,int(abs((x1+x2)/2)),int(abs((y1+y2)/2))) == "Invalid" or pieceType(board,int(abs((x1+x2)/2)),int(abs((y1+y2)/2))) == "Valid": #checks if the space between point a and point b in which the user wants to jump has someone to jump
 			return False
-
-
 
 		if abs(x1-x2) != 2 or abs(y1-y2) != 2: #checks if the move wanted is the right amount of spaces away or not
 			debugInfo("Not enough spaces")
@@ -161,7 +159,7 @@ def tryJump(board,playerTurn,x1,y1,x2,y2): #attempts to do the jump the user wan
 		while canDouble(x2,y2):
 			redLeft, blackLeft = getPiecesLeft(board)
 			display.display().start(board,playerTurn,redLeft,blackLeft)
-			debugInfo("Double")
+			debugInfo("Double Jump To Move you only have to input move (destination)")
 			changeState ,board, x3, y3 = getInput(board,playerTurn,x2,y2) #repolls for input to get the user to get where the user wants to move to
 			if changeState: #change state is just a variable 
 				x2 = x3
@@ -251,6 +249,8 @@ def getInput(board,playerTurn,xPos1,yPos1):
 			yPos1 = int(userInput[1][:1])
 			xPos2 = int(ord(userInput[2][1:]) - 97)
 			yPos2 = int(userInput[2][:1])
+			if pieceColor(board,xPos1,yPos1) != playerTurn:
+				print("Moving other players pieces is cheating")
 			if pieceColor(board,xPos1,yPos1) != "Valid" and pieceColor(board,xPos1,yPos1) == playerTurn:
 				returnValues = tryMove(board,playerTurn,xPos1,yPos1,xPos2,yPos2)
 				if returnValues[0] == False:
