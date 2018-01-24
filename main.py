@@ -41,7 +41,7 @@ def createBoardX(y): #this creates the horizontal colum
 				if y < 3:
 					boardDetails[x] = {"Color": "Red", "Type": "Men"}
 				elif y > 4:
-					boardDetails[x] = {"Color": "Black", "Type": "King"}
+					boardDetails[x] = {"Color": "Black", "Type": "Men"}
 			else:
 				boardDetails[x] = {"Color": "Valid", "Type": "Invalid"}
 		elif y % 2 == 0: #even
