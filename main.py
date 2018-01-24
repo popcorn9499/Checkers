@@ -160,7 +160,7 @@ def tryJump(board,playerTurn,x1,y1,x2,y2): #attempts to do the jump the user wan
 			redLeft, blackLeft = getPiecesLeft(board)
 			display.display().start(board,playerTurn,redLeft,blackLeft)
 			debugInfo("Double Jump To Move you only have to input move (destination)")
-			changeState ,board, x3, y3 = getInput(board,playerTurn,x2,y2) #repolls for input to get the user to get where the user wants to move to
+			changeState,board,x3,y3 = getInput(board,playerTurn,x2,y2) #repolls for input to get the user to get where the user wants to move to
 			if changeState: #change state is just a variable 
 				x2 = x3
 				y2 = y3
@@ -235,6 +235,19 @@ def gameover(redLeft,blackLeft):#checks if game over or not
 		return True
 	return False
 
+def moveInputCheck(userInput): #Gets the input information and checks it to ensure its being inputted correctly
+	try: #checks if the user put in 1a for example
+		y = int(userInput[:1])
+		x = int(ord(userInput[1:]) - 97)
+		return True,x,y
+	except (TypeError,ValueError):
+		try: #checks if the user put in a1 for example. returns none if the user didnt even follow that instruction
+			y = int(ord(userInput[1:]) - 97)
+			x = int(userInput[:1])
+			return True,x,y
+		except (TypeError,ValueError):
+			return False,0,0	
+
 def getInput(board,playerTurn,xPos1,yPos1):
 	#get pieces left
 	redLeft,blackLeft = getPiecesLeft(board)
@@ -244,47 +257,55 @@ def getInput(board,playerTurn,xPos1,yPos1):
 	userInput = input().lower()
 	userInput = userInput.split()
 	if userInput[0] == "move" and xPos1 == -1 and yPos1 == -1:
-		try:
-			xPos1 = int(ord(userInput[1][1:]) - 97)
-			yPos1 = int(userInput[1][:1])
-			xPos2 = int(ord(userInput[2][1:]) - 97)
-			yPos2 = int(userInput[2][:1])
-			if pieceColor(board,xPos1,yPos1) != playerTurn:
-				print("Moving other players pieces is cheating")
-			if pieceColor(board,xPos1,yPos1) != "Valid" and pieceColor(board,xPos1,yPos1) == playerTurn:
-				returnValues = tryMove(board,playerTurn,xPos1,yPos1,xPos2,yPos2)
-				if returnValues[0] == False:
-					debugInfo("Move Failed")
-					returnValues = tryJump(board,playerTurn,xPos1,yPos1,xPos2,yPos2)
-					if returnValues[0]:
+		if len(userInput) == 3:
+			input1Bool,xPos1,yPos1 = moveInputCheck(userInput[1])
+			input2Bool,xPos2,yPos2 = moveInputCheck(userInput[2])
+			debugInfo("x1: {0} y1: {1} x2: {2} y2: {3}".format(xPos1,yPos1,xPos2,yPos2))
+			if input1Bool == True and input2Bool == True:
+				if pieceType(board,xPos1, yPos1) == "Invalid" or pieceType(board,xPos1,yPos1) == "Valid":
+					print("You cannot move nothing")
+				if pieceColor(board,xPos1,yPos1) != playerTurn and pieceType(board,xPos1, yPos1) != "Invalid":
+					print("Moving other players pieces is cheating")
+
+				if pieceColor(board,xPos1,yPos1) != "Valid" and pieceColor(board,xPos1,yPos1) == playerTurn:
+					returnValues = tryMove(board,playerTurn,xPos1,yPos1,xPos2,yPos2)
+					if returnValues[0] == False:
+						debugInfo("Move Failed")
+						returnValues = tryJump(board,playerTurn,xPos1,yPos1,xPos2,yPos2)
+						if returnValues[0]:
+							board = returnValues[1]
+							playerTurn = switchTurn(playerTurn)
+							if debugMode == False: #this just draws the board unless debug mode is on
+								display.display().start(board,playerTurn,redLeft,blackLeft)
+					else:
+						debugInfo("Move Sucessful")
 						board = returnValues[1]
 						playerTurn = switchTurn(playerTurn)
 						if debugMode == False: #this just draws the board unless debug mode is on
-							display.display().start(board,playerTurn)
-				else:
-					debugInfo("Move Sucessful")
-					board = returnValues[1]
-					playerTurn = switchTurn(playerTurn)
-					if debugMode == False: #this just draws the board unless debug mode is on
-						display.display().start(board,playerTurn,redLeft,blackLeft)
-		except (IndexError, TypeError,ValueError) as error:
-			debugInfo('Error on line {}'.format(sys.exc_info()[-1].tb_lineno, type(error).__name__, error))
+							display.display().start(board,playerTurn,redLeft,blackLeft)
+			else:
+				print("Please read the instructions")
+		else:
 			print("Please read the instructions")
 
 	
 	elif userInput[0] =="move" and xPos1 != -1 and yPos1 != -1: #this move is only done when the game is in jump mode where the user must jump every space required
-		try:
-			xPos2 = int(ord(userInput[1][1:]) - 97)
-			yPos2 = int(userInput[1][:1])
-			returnValues = tryJump(board,playerTurn,xPos1,yPos1,xPos2,yPos2)
-			if returnValues[0]:
-				board = returnValues[1]
-				playerTurn = switchTurn(playerTurn)
-				return True,board,xPos2,yPos2
+		if len(userInput) == 2:
+			input2Bool,xPos2,yPos2 = moveInputCheck(userInput[1])
+			debugInfo("x1: {0} y1: {1} x2: {2} y2: {3}".format(xPos1,yPos1,xPos2,yPos2))
+			if input2Bool == True:
+				returnValues = tryJump(board,playerTurn,xPos1,yPos1,xPos2,yPos2)
+				if returnValues[0]:
+					board = returnValues[1]
+					playerTurn = switchTurn(playerTurn)
+					return True,board,xPos2,yPos2
+				return False,board,xPos2,yPos2
+			else:
+				print("Please read the instructions")
+				return False,board,xPos2,yPos2
+		else:
+			print("Please read the instructions")
 			return False,board,xPos2,yPos2
-		except (IndexError, TypeError,ValueError) as e:
-					print("Please read the instructions")
-					return False,board,xPos2,yPos2
 
 	elif userInput[0] == "save": #saves all the information on the board
 		if userInput[1] != "":
@@ -317,14 +338,8 @@ def getInput(board,playerTurn,xPos1,yPos1):
 		exit()
 	return board,playerTurn
 
-
-
-
-
-
-
-board = createBoard()
-redLeft,blackLeft = getPiecesLeft(board)
+board = createBoard()#creates the board and saves it to board
+redLeft,blackLeft = getPiecesLeft(board) #gets red and black pieces left
 display.display().start(board,playerTurn,redLeft,blackLeft) #draws the board
-while True:
+while True:#runs infinitely until the program quits or game over
 	board,playerTurn = waitPlayer(board,playerTurn) #starts the actual game

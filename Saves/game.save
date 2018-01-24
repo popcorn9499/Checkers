@@ -1,0 +1,311 @@
+{
+    "Board": [
+        [
+            {
+                "Color": "Red",
+                "Type": "Men"
+            },
+            {
+                "Color": "Valid",
+                "Type": "Invalid"
+            },
+            {
+                "Color": "Red",
+                "Type": "Men"
+            },
+            {
+                "Color": "Valid",
+                "Type": "Invalid"
+            },
+            {
+                "Color": "Valid",
+                "Type": "Valid"
+            },
+            {
+                "Color": "Valid",
+                "Type": "Invalid"
+            },
+            {
+                "Color": "Red",
+                "Type": "Men"
+            },
+            {
+                "Color": "Valid",
+                "Type": "Invalid"
+            }
+        ],
+        [
+            {
+                "Color": "Valid",
+                "Type": "Invalid"
+            },
+            {
+                "Color": "Red",
+                "Type": "Men"
+            },
+            {
+                "Color": "Valid",
+                "Type": "Invalid"
+            },
+            {
+                "Color": "Red",
+                "Type": "Men"
+            },
+            {
+                "Color": "Valid",
+                "Type": "Invalid"
+            },
+            {
+                "Color": "Red",
+                "Type": "Men"
+            },
+            {
+                "Color": "Valid",
+                "Type": "Invalid"
+            },
+            {
+                "Color": "Red",
+                "Type": "Men"
+            }
+        ],
+        [
+            {
+                "Color": "Red",
+                "Type": "Men"
+            },
+            {
+                "Color": "Valid",
+                "Type": "Invalid"
+            },
+            {
+                "Color": "Red",
+                "Type": "Men"
+            },
+            {
+                "Color": "Valid",
+                "Type": "Invalid"
+            },
+            {
+                "Color": "Valid",
+                "Type": "Valid"
+            },
+            {
+                "Color": "Valid",
+                "Type": "Invalid"
+            },
+            {
+                "Color": "Red",
+                "Type": "Men"
+            },
+            {
+                "Color": "Valid",
+                "Type": "Invalid"
+            }
+        ],
+        [
+            {
+                "Color": "Valid",
+                "Type": "Invalid"
+            },
+            {
+                "Color": "Valid",
+                "Type": "Valid"
+            },
+            {
+                "Color": "Valid",
+                "Type": "Invalid"
+            },
+            {
+                "Color": "Valid",
+                "Type": "Valid"
+            },
+            {
+                "Color": "Valid",
+                "Type": "Invalid"
+            },
+            {
+                "Color": "Red",
+                "Type": "Men"
+            },
+            {
+                "Color": "Valid",
+                "Type": "Invalid"
+            },
+            {
+                "Color": "Valid",
+                "Type": "Valid"
+            }
+        ],
+        [
+            {
+                "Color": "Black",
+                "Type": "Men"
+            },
+            {
+                "Color": "Valid",
+                "Type": "Invalid"
+            },
+            {
+                "Color": "Black",
+                "Type": "Men"
+            },
+            {
+                "Color": "Valid",
+                "Type": "Invalid"
+            },
+            {
+                "Color": "Valid",
+                "Type": "Valid"
+            },
+            {
+                "Color": "Valid",
+                "Type": "Invalid"
+            },
+            {
+                "Color": "Black",
+                "Type": "Men"
+            },
+            {
+                "Color": "Valid",
+                "Type": "Invalid"
+            }
+        ],
+        [
+            {
+                "Color": "Valid",
+                "Type": "Invalid"
+            },
+            {
+                "Color": "Valid",
+                "Type": "Valid"
+            },
+            {
+                "Color": "Valid",
+                "Type": "Invalid"
+            },
+            {
+                "Color": "Black",
+                "Type": "Men"
+            },
+            {
+                "Color": "Valid",
+                "Type": "Invalid"
+            },
+            {
+                "Color": "Valid",
+                "Type": "Valid"
+            },
+            {
+                "Color": "Valid",
+                "Type": "Invalid"
+            },
+            {
+                "Color": "Black",
+                "Type": "Men"
+            }
+        ],
+        [
+            {
+                "Color": "Valid",
+                "Type": "Valid"
+            },
+            {
+                "Color": "Valid",
+                "Type": "Invalid"
+            },
+            {
+                "Color": "Black",
+                "Type": "Men"
+            },
+            {
+                "Color": "Valid",
+                "Type": "Invalid"
+            },
+            {
+                "Color": "Black",
+                "Type": "Men"
+            },
+            {
+                "Color": "Valid",
+                "Type": "Invalid"
+            },
+            {
+                "Color": "Black",
+                "Type": "Men"
+            },
+            {
+                "Color": "Valid",
+                "Type": "Invalid"
+            }
+        ],
+        [
+            {
+                "Color": "Valid",
+                "Type": "Invalid"
+            },
+            {
+                "Color": "Valid",
+                "Type": "Valid"
+            },
+            {
+                "Color": "Valid",
+                "Type": "Invalid"
+            },
+            {
+                "Color": "Black",
+                "Type": "Men"
+            },
+            {
+                "Color": "Valid",
+                "Type": "Invalid"
+            },
+            {
+                "Color": "Black",
+                "Type": "Men"
+            },
+            {
+                "Color": "Valid",
+                "Type": "Invalid"
+            },
+            {
+                "Color": "Black",
+                "Type": "Men"
+            }
+        ],
+        [
+            {
+                "Color": "Black",
+                "Type": "Men"
+            },
+            {
+                "Color": "Valid",
+                "Type": "Invalid"
+            },
+            {
+                "Color": "Black",
+                "Type": "Men"
+            },
+            {
+                "Color": "Valid",
+                "Type": "Invalid"
+            },
+            {
+                "Color": "Black",
+                "Type": "Men"
+            },
+            {
+                "Color": "Valid",
+                "Type": "Invalid"
+            },
+            {
+                "Color": "Black",
+                "Type": "Men"
+            },
+            {
+                "Color": "Valid",
+                "Type": "Invalid"
+            }
+        ]
+    ],
+    "playerTurn": "Red"
+}
