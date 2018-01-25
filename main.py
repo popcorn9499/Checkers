@@ -230,7 +230,7 @@ def getPiecesLeft(board):
 
 def gameover(redLeft,blackLeft):#checks if game over or not
 	if redLeft < 1:
-		Print("Black Won")
+		print("Black Won")
 		return True
 	elif blackLeft < 1:
 		print("Red Won")
