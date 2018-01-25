@@ -34,5 +34,5 @@ def listSaves():
 	print("Saves:")
 	for (dirpath, dirnames, filenames) in os.walk("Saves"):
 		for file in filenames:
-			print("  {0}".format(file[:len(file-5)]))
+			print("  {0}".format(file[:len(:file-5)]))
 		break
