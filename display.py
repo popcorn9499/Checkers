@@ -50,14 +50,14 @@ class display():
 
 	def infoPanel(self,playerTurn,redLeft,blackLeft): 
 		info = '''
-Lengend	        Information
-O = Red Men			Player {0}'s Turn
-I = Red King			Red: {1}
-L = Black Men			Black: {2}
-K = Black King		Commands: Quit, Move, Save, Load, List
-_ = Valid Spaces 	to move a player type Move (starting space) (ending space) ex Move 1a 2b
-			ex Save (some file)
-			ex Save (some file that exists)
+Legend	            Information
+O = Red Men	            Player {0}'s Turn
+I = Red King            Red: {1}
+L = Black Men           Black: {2}
+K = Black King      Commands: Quit, Move, Save, Load, List
+_ = Valid Spaces    to move a player type Move (starting space) (ending space) ex Move 1a 2b
+                    ex Save (some file)
+                    ex Save (some file that exists)
 
 
 		'''.format(playerTurn,redLeft,blackLeft)
