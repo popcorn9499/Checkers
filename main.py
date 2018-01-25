@@ -161,7 +161,7 @@ def tryJump(board,playerTurn,x1,y1,x2,y2): #attempts to do the jump the user wan
 		while canDouble(x2,y2):
 			redLeft, blackLeft = getPiecesLeft(board)
 			display.display().start(board,playerTurn,redLeft,blackLeft)
-			debugInfo("Double Jump To Move you only have to input move (destination)")
+			print("Double Jump To Move you only have to input move (destination)")
 			changeState,board,x3,y3 = getInput(board,playerTurn,x2,y2) #repolls for input to get the user to get where the user wants to move to
 			if changeState: #change state is just a variable 
 				x2 = x3
@@ -321,6 +321,7 @@ def getInput(board,playerTurn,xPos1,yPos1):
 			if type(returnValues[0]) == list: #Checks if the values returned was a list
 				board = returnValues[0]
 				playerTurn = returnValues[1]
+				redLeft,blackLeft = getPiecesLeft(board)
 				display.display().start(board,playerTurn,redLeft,blackLeft) #displays the new board information
 				print("Loading")
 			else:
