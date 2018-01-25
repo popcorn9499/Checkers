@@ -302,13 +302,13 @@ def getInput(board,playerTurn,xPos1,yPos1):
 					board = returnValues[1]
 					playerTurn = switchTurn(playerTurn)
 					return True,board,xPos2,yPos2
-				return False,board,xPos2,yPos2
+				return False,board,0,0
 			else:
 				print("Please read the instructions")
-				return False,board,xPos2,yPos2
+				return False,board,0,0
 		else:
 			print("Please read the instructions")
-			return False,board,xPos2,yPos2
+			return False,board,0,0
 
 	elif userInput[0] == "save": #saves all the information on the board
 		if userInput[1] != "":

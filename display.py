@@ -50,6 +50,7 @@ class display():
 
 	def infoPanel(self,playerTurn,redLeft,blackLeft): 
 		info = '''
+Lengend	        Information
 O = Red Men			Player {0}'s Turn
 I = Red King			Red: {1}
 L = Black Men			Black: {2}
