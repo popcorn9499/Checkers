@@ -347,3 +347,4 @@ redLeft,blackLeft = getPiecesLeft(board) #gets red and black pieces left
 display.display().start(board,playerTurn,redLeft,blackLeft) #draws the board
 while True:#runs infinitely until the program quits or game over
 	board,playerTurn = waitPlayer(board,playerTurn) #starts the actual game
+
