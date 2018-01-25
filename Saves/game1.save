@@ -10,135 +10,67 @@
                 "Type": "Invalid"
             },
             {
-                "Color": "Red",
-                "Type": "Men"
-            },
-            {
-                "Color": "Valid",
-                "Type": "Invalid"
-            },
-            {
-                "Color": "Red",
-                "Type": "Men"
-            },
-            {
-                "Color": "Valid",
-                "Type": "Invalid"
-            },
-            {
-                "Color": "Red",
-                "Type": "Men"
-            },
-            {
-                "Color": "Valid",
-                "Type": "Invalid"
-            }
-        ],
-        [
-            {
-                "Color": "Valid",
-                "Type": "Invalid"
-            },
-            {
-                "Color": "Red",
-                "Type": "Men"
-            },
-            {
-                "Color": "Valid",
-                "Type": "Invalid"
-            },
-            {
-                "Color": "Red",
-                "Type": "Men"
-            },
-            {
-                "Color": "Valid",
-                "Type": "Invalid"
-            },
-            {
-                "Color": "Valid",
-                "Type": "Valid"
-            },
-            {
-                "Color": "Valid",
-                "Type": "Invalid"
-            },
-            {
-                "Color": "Red",
-                "Type": "Men"
-            }
-        ],
-        [
-            {
-                "Color": "Red",
-                "Type": "Men"
-            },
-            {
-                "Color": "Valid",
-                "Type": "Invalid"
-            },
-            {
-                "Color": "Red",
-                "Type": "Men"
-            },
-            {
-                "Color": "Valid",
-                "Type": "Invalid"
-            },
-            {
-                "Color": "Red",
-                "Type": "Men"
-            },
-            {
-                "Color": "Valid",
-                "Type": "Invalid"
-            },
-            {
-                "Color": "Red",
-                "Type": "Men"
-            },
-            {
-                "Color": "Valid",
-                "Type": "Invalid"
-            }
-        ],
-        [
-            {
-                "Color": "Valid",
-                "Type": "Invalid"
-            },
-            {
-                "Color": "Valid",
-                "Type": "Valid"
-            },
-            {
-                "Color": "Valid",
-                "Type": "Invalid"
-            },
-            {
-                "Color": "Valid",
-                "Type": "Valid"
-            },
-            {
-                "Color": "Valid",
-                "Type": "Invalid"
-            },
-            {
-                "Color": "Red",
-                "Type": "Men"
-            },
-            {
-                "Color": "Valid",
-                "Type": "Invalid"
-            },
-            {
-                "Color": "Valid",
-                "Type": "Valid"
-            }
-        ],
-        [
-            {
                 "Color": "Black",
+                "Type": "King"
+            },
+            {
+                "Color": "Valid",
+                "Type": "Invalid"
+            },
+            {
+                "Color": "Valid",
+                "Type": "Valid"
+            },
+            {
+                "Color": "Valid",
+                "Type": "Invalid"
+            },
+            {
+                "Color": "Red",
+                "Type": "Men"
+            },
+            {
+                "Color": "Valid",
+                "Type": "Invalid"
+            }
+        ],
+        [
+            {
+                "Color": "Valid",
+                "Type": "Invalid"
+            },
+            {
+                "Color": "Red",
+                "Type": "Men"
+            },
+            {
+                "Color": "Valid",
+                "Type": "Invalid"
+            },
+            {
+                "Color": "Valid",
+                "Type": "Valid"
+            },
+            {
+                "Color": "Valid",
+                "Type": "Invalid"
+            },
+            {
+                "Color": "Valid",
+                "Type": "Valid"
+            },
+            {
+                "Color": "Valid",
+                "Type": "Invalid"
+            },
+            {
+                "Color": "Valid",
+                "Type": "Valid"
+            }
+        ],
+        [
+            {
+                "Color": "Red",
                 "Type": "Men"
             },
             {
@@ -176,8 +108,38 @@
                 "Type": "Invalid"
             },
             {
-                "Color": "Black",
-                "Type": "Men"
+                "Color": "Valid",
+                "Type": "Valid"
+            },
+            {
+                "Color": "Valid",
+                "Type": "Invalid"
+            },
+            {
+                "Color": "Valid",
+                "Type": "Valid"
+            },
+            {
+                "Color": "Valid",
+                "Type": "Invalid"
+            },
+            {
+                "Color": "Valid",
+                "Type": "Valid"
+            },
+            {
+                "Color": "Valid",
+                "Type": "Invalid"
+            },
+            {
+                "Color": "Valid",
+                "Type": "Valid"
+            }
+        ],
+        [
+            {
+                "Color": "Valid",
+                "Type": "Valid"
             },
             {
                 "Color": "Valid",
@@ -192,8 +154,46 @@
                 "Type": "Invalid"
             },
             {
-                "Color": "Black",
+                "Color": "Red",
                 "Type": "Men"
+            },
+            {
+                "Color": "Valid",
+                "Type": "Invalid"
+            },
+            {
+                "Color": "Valid",
+                "Type": "Valid"
+            },
+            {
+                "Color": "Valid",
+                "Type": "Invalid"
+            }
+        ],
+        [
+            {
+                "Color": "Valid",
+                "Type": "Invalid"
+            },
+            {
+                "Color": "Valid",
+                "Type": "Valid"
+            },
+            {
+                "Color": "Valid",
+                "Type": "Invalid"
+            },
+            {
+                "Color": "Valid",
+                "Type": "Valid"
+            },
+            {
+                "Color": "Valid",
+                "Type": "Invalid"
+            },
+            {
+                "Color": "Valid",
+                "Type": "Valid"
             },
             {
                 "Color": "Valid",
@@ -206,8 +206,8 @@
         ],
         [
             {
-                "Color": "Black",
-                "Type": "Men"
+                "Color": "Valid",
+                "Type": "Valid"
             },
             {
                 "Color": "Valid",

@@ -88,12 +88,14 @@ def isValidJump(board,x1,y1,x2,y2): #checks if the jump is valid
 
 		if abs(x1-x2) != 2 or abs(y1-y2) != 2: #checks if the move wanted is the right amount of spaces away or not
 			debugInfo("Not enough spaces")
+			print("Not enough spaces")
 			return False
 
 		debugInfo("Check valid spaces")
 
 		if pieceType(board,x2,y2) != "Valid": #basically checks if the spot the user wants to move isnt ocupied and therefor valid
 			debugInfo("Not valid space")
+			print("Invalid space")
 			return False
 		if pieceType(board,x2,y2) == "Invalid":
 			return False
@@ -266,7 +268,6 @@ def getInput(board,playerTurn,xPos1,yPos1):
 					print("You cannot move nothing")
 				if pieceColor(board,xPos1,yPos1) != playerTurn and pieceType(board,xPos1, yPos1) != "Invalid":
 					print("Moving other players pieces is cheating")
-
 				if pieceColor(board,xPos1,yPos1) != "Valid" and pieceColor(board,xPos1,yPos1) == playerTurn:
 					returnValues = tryMove(board,playerTurn,xPos1,yPos1,xPos2,yPos2)
 					if returnValues[0] == False:
@@ -276,12 +277,14 @@ def getInput(board,playerTurn,xPos1,yPos1):
 							board = returnValues[1]
 							playerTurn = switchTurn(playerTurn)
 							if debugMode == False: #this just draws the board unless debug mode is on
+								redLeft,blackLeft = getPiecesLeft(board)
 								display.display().start(board,playerTurn,redLeft,blackLeft)
 					else:
 						debugInfo("Move Sucessful")
 						board = returnValues[1]
 						playerTurn = switchTurn(playerTurn)
 						if debugMode == False: #this just draws the board unless debug mode is on
+							redLeft,blackLeft = getPiecesLeft(board)
 							display.display().start(board,playerTurn,redLeft,blackLeft)
 			else:
 				print("Please read the instructions")
