@@ -33,5 +33,6 @@ def loadBoard(fileName):
 def listSaves():
 	print("Saves:")
 	for (dirpath, dirnames, filenames) in os.walk("Saves"):
-		print("  {0}".format(filenames[0]))
+		for file in filenames:
+			print("  {0}".format(file[:len(file-5)]))
 		break
